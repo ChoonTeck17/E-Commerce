@@ -27,7 +27,7 @@ class AdminController extends Controller
         $request->validate([
             'name'=> 'required',
             'slug'=> 'required|unique:brands,slug',
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         $brand = new Brand();
@@ -36,7 +36,7 @@ class AdminController extends Controller
         $image = $request->file('image');
         $file_extension = $request->file('image')->extension();
         $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-        $this->GeneraraThumbnail($image, $file_name);
+        $this->GenerateThumbnail($image, $file_name);
         $brand->image = $file_name;
         $brand->save();
 
@@ -45,11 +45,11 @@ class AdminController extends Controller
 
     public function GenerateThumbnail($image, $imageName){
         $destinationPath = public_path('/uploads/brands');
-        $img = Image::read($image->path);
+        $img = Image::read($image->path());
         $img->cover(124,124,"top");
-        $img->(124,124,function($constraint){
-        $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$imageName);
+        // $img->resize(124, 124, function ($constraint) {
+        //     $constraint->aspectRatio();
+        $img->save($destinationPath . '/' . $imageName);
     }
 }
 
