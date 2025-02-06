@@ -14,7 +14,7 @@
                     <i class="icon-chevron-right"></i>
                 </li>
                 <li>
-                    <a href="{{route('admin.brand.add')}}">
+                    <a href="{{route('admin.brands')}}">
                         <div class="text-tiny">Brands</div>
                     </a>
                 </li>
@@ -32,10 +32,10 @@
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="id" value="{{$brand->id}}">'
+                <input type="hidden" name="id" value="{{$brand->id}}"/>
                 <fieldset class="name">
                     <div class="body-title">Brand Name <span class="tf-color-1">*</span></div>
-                    <input class="flex-grow" type="hidden" name="id" value="{{$brand->id}}">'" placeholder="Brand name" name="name"
+                    <input class="flex-grow" type="text" placeholder="Brand name" name="name"
                         tabindex="0" value="{{$brand->name}}" aria-required="true" required="">
                 </fieldset>
                 @error('name') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
@@ -51,7 +51,7 @@
                     <div class="upload-image flex-grow">
                         @if($brand->image)
                         <div class="item" id="imgpreview">
-                            <img src="{{asset('uploads/brands')}}/{{$brand->image}}" class="effect8" alt="">
+                            <img src="{{asset('uploads/brands')}}/{{$brand->image}}" alt="">
                         </div>
                         @endif
                         <div id="upload-file" class="item up-load">
@@ -81,25 +81,26 @@
 
 @push('scripts')
 <script>
-    $(function(){
-        $("#myFile").on("change",function(e){
+    $(function () {
+        $("#myFile").on("change", function (e) {
             const photoInp = $("#myFile");
-            const file= this.files[0];
-            if(file){
-                $("#imgpreview img").attr('src',URL.createObjectURL(file));
+            const [file] = this.files;
+            if (file) {
+                $("#imgpreview img").attr('src', URL.createObjectURL(file));
                 $("#imgpreview").show();
             }
         });
 
-        $("#input[name='name']").on("change",function(){
-            $("#input[name='slug']").val(StringtoSlug($this.val()));
+        $("input[name='name']").on("change", function () {
+            $("input[name='slug']").val(StringToSlug($(this).val()));
         });
+
     });
 
-    function StringtoSlug(Text){
-        return Text.toloLowerCase()
-        .replace(/[^\w-]+/g,'')
-        .replace(/\s+/g,'-');
+    function StringToSlug(Text) {
+        return Text.toLowerCase()
+            .replace(/[^\w ]+/g, "")
+            .replace(/ +/g, "-");
     }
 </script>
 

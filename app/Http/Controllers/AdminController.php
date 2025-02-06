@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Brand;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
-// use Faker\Core\File;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
+// use Illuminate\Support\Facades\Str;
+// use Intervention\Image\Facades\Image;
+// use Faker\Core\File;
+
+
+
 class AdminController extends Controller
 {
     public function index()
@@ -29,7 +34,7 @@ class AdminController extends Controller
         $request->validate([
             'name'=> 'required',
             'slug'=> 'required|unique:brands,slug,'.$request->id,
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'image'=> 'mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         // $brand = new Brand();
@@ -46,45 +51,47 @@ class AdminController extends Controller
         return redirect()->route('admin.brands')->with('status','Brand added successfully!');
     }
 
-    public function GenerateThumbnail($image, $imageName){
-        $destinationPath = public_path('/uploads/brands');
-        $img = Image::read($image->path());
-        $img->cover(124,124,"top");
-        // $img->resize(124, 124, function ($constraint) {
-        //     $constraint->aspectRatio();
-        $img->save($destinationPath . '/' . $imageName);
-    }
+
 
     public function edit_brand($id){
         $brand = Brand::find($id);
         return view('admin.edit_brand', compact('brand'));
     }
 
-    public function update_brand(Request $request){
+    public function update_brand(Request $request)
+    {
         $request->validate([
-            'name'=> 'required',
-            'slug'=> 'required|unique:brands,slug',
-            'image'=> 'mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'name' => 'required',
+            'slug' => 'required|unique:brands,slug,'.$request->id,
+            'image' => 'mimes:png,jpg,jpeg|max:2048'
         ]);
-
         $brand = Brand::find($request->id);
         $brand->name = $request->name;
-        $brand->slug = Str::slug($request->name);
-        if($request->hasFile('image')){
-            if(File::exists(public_path('uploads/brands/'.$brand->image)))
-            {
-                File::delete(public_path('uploads/brands/'.$brand->image));
+        $brand->slug = $request->slug;
+        if($request->hasFile('image'))
+        {            
+            if (File::exists(public_path('uploads/brands').'/'.$brand->image)) {
+                File::delete(public_path('uploads/brands').'/'.$brand->image);
             }
             $image = $request->file('image');
-            $file_extension = $request->file('image')->extension();
-            $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-            $this->GenerateThumbnail($image, $file_name);
+            $file_extention = $request->file('image')->extension();
+            $file_name = Carbon::now()->timestamp . '.' . $file_extention;
+            $this->GenerateThumbnail($image,$file_name);
             $brand->image = $file_name;
-         }
-        
-        $brand->save();
-        return redirect()->route('admin.brands')->with('status','brand edited successfully!'); 
+        }        
+        $brand->save();        
+        return redirect()->route('admin.brands')->with('status','Record has been updated successfully !');
+    }
 
+    public function GenerateThumbnail($image, $imageName)
+    {
+        $destinationPath = public_path('uploads/brands');
+        $img = Image::make($image->path());
+        $img->fit(124, 124, function ($constraint) {
+            $constraint->upsize();
+        });
+        $img->save($destinationPath . '/' . $imageName);
     }
 }
 
+  
