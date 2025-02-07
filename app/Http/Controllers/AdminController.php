@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
 // use Illuminate\Support\Facades\Str;
 // use Intervention\Image\Facades\Image;
+
 // use Faker\Core\File;
 
 
@@ -33,12 +34,12 @@ class AdminController extends Controller
     public function store_brand(request $request){
         $request->validate([
             'name'=> 'required',
-            'slug'=> 'required|unique:brands,slug,'.$request->id,
-            'image'=> 'mimes:jpeg,png,jpg,gif|max:5120'
+            'slug'=> 'required|unique:brands,slug',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
-        // $brand = new Brand();
-        $brand = Brand::find($request->id);
+        $brand = new Brand();
+        // $brand = Brand::findOrNew($request->id);
         $brand->name = $request->name;
         $brand->slug = Str::slug($request->name);
         $image = $request->file('image');
@@ -85,11 +86,11 @@ class AdminController extends Controller
 
     public function GenerateThumbnail($image, $imageName)
     {
-        $destinationPath = public_path('uploads/brands');
-        $img = Image::make($image->path());
-        $img->fit(124, 124, function ($constraint) {
-            $constraint->upsize();
-        });
+        $destinationPath = public_path('/uploads/brands');
+        $img = Image::read($image->path());
+        $img->cover(124,124,"top");
+        // $img->resize(124, 124, function ($constraint) {
+        //     $constraint->aspectRatio();
         $img->save($destinationPath . '/' . $imageName);
     }
 }

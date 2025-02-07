@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 @section('content')
-<div class="main-content-inner">
 
+<div class="main-content-inner">
+   
     <div class="main-content-wrap">
         <div class="tf-section-2 mb-30">
             <div class="flex gap20 flex-wrap-mobile">
                 <div class="w-half">
-
+                    
                     <div class="wg-chart-default mb-20">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap14">
@@ -20,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-
+                   
 
                     <div class="wg-chart-default mb-20">
                         <div class="flex items-center justify-between">
@@ -36,7 +37,7 @@
                         </div>
                     </div>
 
-
+   
                     <div class="wg-chart-default mb-20">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap14">
@@ -50,8 +51,7 @@
                             </div>
                         </div>
                     </div>
-
-
+                    
                     <div class="wg-chart-default">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap14">
@@ -65,9 +65,8 @@
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
-
                 <div class="w-half">
 
                     <div class="wg-chart-default mb-20">
@@ -99,7 +98,7 @@
                         </div>
                     </div>
 
-
+       
                     <div class="wg-chart-default mb-20">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap14">
@@ -188,6 +187,7 @@
             </div>
 
         </div>
+
         <div class="tf-section mb-30">
 
             <div class="wg-box">
@@ -248,7 +248,10 @@
             </div>
 
         </div>
+
     </div>
 
+
 </div>
-@endsection-
+
+@endsection
