@@ -110,6 +110,41 @@ class AdminController extends Controller
         $categories = Category::orderBy('id','desc')->paginate(10);
         return view('admin.categories', compact('categories'));
     }
+    
+    public function add_category(){
+        return view('admin.add_category');
+    }
+
+    public function store_category(request $request){
+        $request->validate([
+            'name'=> 'required',
+            'slug'=> 'required|unique:brands,slug',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+        ]);
+        $category = new Category();
+        // $category =$category::findOrNew($request->id);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $image = $request->file('image');
+        $file_extension = $request->file('image')->extension();
+        $file_name = Carbon::now()->timestamp.'.'.$file_extension;
+        $this->GenerateCategoryThumbnail($image, $file_name);
+        $category->image = $file_name;
+        $category->save();
+
+        return redirect()->route('admin.categories')->with('status','Category added successfully!');
+    }
+
+    public function GenerateCategoryThumbnail($image, $imageName)
+    {
+        $destinationPath = public_path('/uploads/categories');
+        $img = Image::read($image->path());
+        $img->cover(124,124,"top");
+        // $img->resize(124, 124, function ($constraint) {
+        //     $constraint->aspectRatio();
+        $img->save($destinationPath . '/' . $imageName);
+    }
+
 }
 
   
