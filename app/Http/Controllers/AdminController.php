@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
+use App\Models\Category; // Ensure this line is present
+
 // use Illuminate\Support\Facades\Str;
 // use Intervention\Image\Facades\Image;
 
@@ -92,6 +94,21 @@ class AdminController extends Controller
         // $img->resize(124, 124, function ($constraint) {
         //     $constraint->aspectRatio();
         $img->save($destinationPath . '/' . $imageName);
+    }
+
+    public function delete_brand($id)
+    {
+        $brand = Brand::find($id);
+        if (File::exists(public_path('uploads/brands') . '/' . $brand->image)) {
+            File::delete(public_path('uploads/brands') . '/' . $brand->image);
+        }
+        $brand->delete();
+        return redirect()->route('admin.brands')->with('status', 'This brand has been deleted successfully !');
+    }
+
+    public function categories(){
+        $categories = Category::orderBy('id','desc')->paginate(10);
+        return view('admin.categories', compact('categories'));
     }
 }
 
