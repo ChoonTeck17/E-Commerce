@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Category; // Ensure this line is present
+use App\Models\Product; // Ensure this line is present
 
 // use Illuminate\Support\Facades\Str;
 // use Intervention\Image\Facades\Image;
@@ -174,6 +175,21 @@ class AdminController extends Controller
         }        
         $category->save();        
         return redirect()->route('admin.categories')->with('status','Record has been updated successfully !');
+    }
+
+    public function delete_category($id)
+    {
+        $category = Category::find($id);
+        if (File::exists(public_path('uploads/categories') . '/' . $category->image)) {
+            File::delete(public_path('uploads/categories') . '/' . $category->image);
+        }
+        $category->delete();
+        return redirect()->route('admin.categories')->with('status', 'This category has been deleted successfully !');
+    }
+
+    public function products(){
+        $products = Product::orderBy('id','desc')->paginate(10);
+        return view('admin.products', compact('products'));
     }
 }
 
