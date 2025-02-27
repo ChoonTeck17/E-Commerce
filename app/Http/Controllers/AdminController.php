@@ -225,7 +225,7 @@ class AdminController extends Controller
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
 
-        $current_timestamp = Carbon::now()->timestamp();
+        $current_timestamp = Carbon::now()->timestamp;
 
         if($request->hasFile('image'))
         {            
@@ -239,7 +239,7 @@ class AdminController extends Controller
             $counter =1;
 
             if($request->hasFile('images')){
-                $allowedFileExtion ='jpg,jpeg,png';
+                $allowedFileExtion =['jpg,jpeg,png'];
                 $files = $request->file('images');
                 foreach($files as $file){
                     $gextension = $file->getClientOriginalExtension();
@@ -259,20 +259,37 @@ class AdminController extends Controller
         }
     }
 
-    public function generateProductThumbnailImage($image, $imageName){
+    // public function generateProductThumbnailImage($image, $imageName){
+    //     $destinationPathThumbnail = public_path('/uploads/products/thumbnail');
+    //     $destinationPath = public_path('/uploads/products');
+    //     $img = Image::read($image->path());
+    //     // $img->cover(540,689,"top");
+    //     $img->resize(540,689, function($constraint){
+    //         $constraint->aspectRatio();
+    //     })->save($destinationPath.'/'.$imageName);
+
+    //     $img->fit(124,124, function($constraint){
+    //         $constraint->aspectRatio();
+    //     })->save($destinationPathThumbnail.'/'.$imageName);
+
+    // }
+    public function generateProductThumbnailImage($image, $imageName)
+    {
         $destinationPathThumbnail = public_path('/uploads/products/thumbnail');
         $destinationPath = public_path('/uploads/products');
-        $img = Image::read($image->path());
-        $img->cover(124,124,"top");
-        $img->resize(540,689, function($constraint){
-            $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$imageName);
 
-        $img->resize(104,104, function($constraint){
-            $constraint->aspectRatio();
-        })->save($destinationPathThumbnail.'/'.$imageName);
+        $img = Image::read($image->getRealPath()); // Ensure correct path
 
+        // Resize while maintaining aspect ratio
+        $img = $img->scale(width: 540, height: 689);
+        $img->save($destinationPath . '/' . $imageName);
+
+        // Fit for thumbnail
+        $img = Image::read($image->getRealPath()); // Reload original image
+        $img = $img->cover(124, 124);
+        $img->save($destinationPathThumbnail . '/' . $imageName);
     }
+
 }
 
   

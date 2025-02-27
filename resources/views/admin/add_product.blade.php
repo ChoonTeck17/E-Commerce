@@ -115,7 +115,7 @@
                             <img src="../../../localhost_8000/images/upload/upload-1.png"
                                 class="effect8" alt="">
                         </div>
-                        <div id="gaupload" class="item up-load">
+                        <div id="upload-file" class="item up-load">
                             <label class="uploadfile" for="myFile">
                                 <span class="icon">
                                     <i class="icon-upload-cloud"></i>
@@ -156,7 +156,7 @@
                         <div class="body-title mb-10">Regular Price <span
                                 class="tf-color-1">*</span></div>
                         <input class="mb-10" type="text" placeholder="Enter regular price"
-                            name="regular_price" tabindex="0" value="{{old('normal_price')}}" aria-required="true"
+                            name="normal_price" tabindex="0" value="{{old('normal_price')}}" aria-required="true"
                             required="">
                     </fieldset>
                     @error('normal_price') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
@@ -176,7 +176,7 @@
                 <div class="cols gap22">
                     <fieldset class="name">
                         <div class="body-title mb-10">SKU <span class="tf-color-1">*</span>
-                        </div>
+                        </div>  
                         <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU"
                             tabindex="0" value="{{old('SKU')}}" aria-required="true" required="">
                     </fieldset>
@@ -233,7 +233,7 @@
     $(function(){
         $("#myFile").on("change",function(e){
             const photoInp = $("#myFile");
-            const file= this.files;
+            const [file]= this.files;
             if(file){
                 $("#imgpreview img").attr('src',URL.createObjectURL(file));
                 $("#imgpreview").show();
@@ -242,16 +242,16 @@
 
         $("#gFile").on("change",function(e){
             const photoInp = $("#gFile");
-            const gphotos= this.files;
-            $.each(gphotos,function(key,val){
-                    $("#galUpload").prepend(`<div class="item"></div>
-                    <img src="${URL.createObjectURL(val)}" /></div>`);
+            const [file]= this.files;
+            if(file){
+                $("#imgpreview img").attr('src',URL.createObjectURL(file));
+                $("#imgpreview").show();
+                }
             });
 
-        });
 
-        $("#input[name='name']").on("change",function(){
-            $("#input[name='slug']").val(StringtoSlug($this.val()));
+        $("input[name='name']").on("change",function(){
+            $("input[name='slug']").val(StringtoSlug($(this).val()));
         });
     });
 
