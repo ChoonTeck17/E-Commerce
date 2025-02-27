@@ -231,35 +231,37 @@
 @push('scripts')
 <script>
     $(function(){
-        $("#myFile").on("change",function(e){
-            const photoInp = $("#myFile");
-            const [file]= this.files;
+        $("#myFile").on("change", function(e){
+            const file = this.files[0]; // Get first file
             if(file){
-                $("#imgpreview img").attr('src',URL.createObjectURL(file));
-                $("#imgpreview").show();
+                $("#imgpreview img").attr('src', URL.createObjectURL(file));
+                $("#imgpreview").show(); // Ensure it's displayed
             }
         });
 
-        $("#gFile").on("change",function(e){
-            const photoInp = $("#gFile");
-            const [file]= this.files;
-            if(file){
-                $("#imgpreview img").attr('src',URL.createObjectURL(file));
-                $("#imgpreview").show();
-                }
+        $("#gFile").on("change", function(e){
+            const gphotos = this.files;
+            $("#galUpload").html(""); // Clear previous images
+
+            $.each(gphotos, function(key, val){
+                const imgElement = `<div class="item">
+                                        <img src="${URL.createObjectURL(val)}" />
+                                    </div>`;
+                $("#galUpload").prepend(imgElement);
             });
+        });
 
-
-        $("input[name='name']").on("change",function(){
+        $("input[name='name']").on("change", function(){
             $("input[name='slug']").val(StringtoSlug($(this).val()));
         });
     });
 
     function StringtoSlug(Text){
-        return Text.toloLowerCase()
-        .replace(/[^\w-]+/g,'')
-        .replace(/\s+/g,'-');
+        return Text.toLowerCase()
+            .replace(/[^\w-]+/g,'')
+            .replace(/\s+/g,'-');
     }
+
 </script>
 
 @endpush
