@@ -198,97 +198,84 @@ class AdminController extends Controller
         return view('admin.add_product', compact('categories','brands'));
     }
 
-    public function store_product(request $request){
-        $request->validate([
-            'name'=> 'required',
-            'slug'=> 'required|unique:products,slug',
-            'description'=> 'required',
-            'normal_price'=> 'required|numeric',
-            'sale_price'=> 'nullable|numeric',
-            'SKU'=> 'required',
-            'stock_status'=> 'required',
-            'quantity'=> 'required|numeric',
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
-            'category_id'=> 'required',
-            'brand_id'=> 'required',
-        ]);
-        $product = new Product();
-        // $product = Product::findOrNew($request->id);
-        $product->name = $request->name;
-        $product->slug = Str::slug($request->name);
-        $product->description = $request->description;
-        $product->normal_price = $request->normal_price;
-        $product->sale_price = $request->sale_price;
-        $product->SKU = $request->SKU;
-        $product->stock_status = $request->stock_status;
-        $product->quantity = $request->quantity;
-        $product->category_id = $request->category_id;
-        $product->brand_id = $request->brand_id;
+    // public function store_product(request $request){
+    //     $request->validate([
+    //         'name'=> 'required',
+    //         'slug'=> 'required|unique:products,slug',
+    //         'description'=> 'required',
+    //         'normal_price'=> 'required|numeric',
+    //         'sale_price'=> 'nullable|numeric',
+    //         'SKU'=> 'required',
+    //         'stock_status'=> 'required',
+    //         'quantity'=> 'required|numeric',
+    //         'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
+    //         'category_id'=> 'required',
+    //         'brand_id'=> 'required',
+    //     ]);
+    //     $product = new Product();
+    //     // $product = Product::findOrNew($request->id);
+    //     $product->name = $request->name;
+    //     $product->slug = Str::slug($request->name);
+    //     $product->description = $request->description;
+    //     $product->normal_price = $request->normal_price;
+    //     $product->sale_price = $request->sale_price;
+    //     $product->SKU = $request->SKU;
+    //     $product->stock_status = $request->stock_status;
+    //     $product->quantity = $request->quantity;
+    //     $product->category_id = $request->category_id;
+    //     $product->brand_id = $request->brand_id;
 
-        $current_timestamp = Carbon::now()->timestamp;
+    //     $current_timestamp = Carbon::now()->timestamp;
 
-        if($request->hasFile('image'))
-        {            
-            $image = $request->file('image');
-            $imageName = $current_timestamp.'.'.$image->extension();
-            $this->generateProductThumbnailImage($image, $imageName);
-            $product->image =$imageName;
+    //     if($request->hasFile('image'))
+    //     {            
+    //         $image = $request->file('image');
+    //         $imageName = $current_timestamp.'.'.$image->extension();
+    //         $this->generateProductThumbnailImage($image, $imageName);
+    //         $product->image =$imageName;
 
-            $gallery_arr = array();
-            $gallery_images = "";
-            $counter =1;
+    //         $gallery_arr = array();
+    //         $gallery_images = "";
+    //         $counter =1;
 
-            if($request->hasFile('images')){
-                $allowedFileExtion =['jpg,jpeg,png'];
-                $files = $request->file('images');
-                foreach($files as $file){
-                    $gextension = $file->getClientOriginalExtension();
-                    $gcheck = in_array($gextension, $allowedFileExtion);
-                    if($gcheck){
-                        $gfilename = $current_timestamp.'_'.$counter.'.'.$gextension();
-                        $this->generateProductThumbnailImage($file, $gfilename);
-                        array_push($gallery_arr, $gfilename);
-                        $counter= $counter+1;
-                    }
-                }
-                $gallery_images = implode(',',$gallery_arr);
-            }
-            $product->images = $gallery_images;
-            $product->save();
-            return redirect()->route('admin.products')->with('status','Product added successfully!');
-        }
-    }
-
-    // public function generateProductThumbnailImage($image, $imageName){
-    //     $destinationPathThumbnail = public_path('/uploads/products/thumbnail');
-    //     $destinationPath = public_path('/uploads/products');
-    //     $img = Image::read($image->path());
-    //     // $img->cover(540,689,"top");
-    //     $img->resize(540,689, function($constraint){
-    //         $constraint->aspectRatio();
-    //     })->save($destinationPath.'/'.$imageName);
-
-    //     $img->fit(124,124, function($constraint){
-    //         $constraint->aspectRatio();
-    //     })->save($destinationPathThumbnail.'/'.$imageName);
-
+    //         if($request->hasFile('images')){
+    //             $allowedFileExtion =['jpg,jpeg,png,webp'];
+    //             $files = $request->file('images');
+    //             foreach($files as $file){
+    //                 $gextension = $file->getClientOriginalExtension();
+    //                 $gcheck = in_array($gextension, $allowedFileExtion);
+    //                 if($gcheck){
+    //                     $gfilename = $current_timestamp.'_'.$counter.'.'.$gextension();
+    //                     $this->generateProductThumbnailImage($file, $gfilename);
+    //                     array_push($gallery_arr, $gfilename);
+    //                     $counter= $counter+1;
+    //                 }
+    //             }
+    //             $gallery_images = implode(',',$gallery_arr);
+    //         }
+    //         $product->images = $gallery_images;
+    //         $product->save();
+    //         return redirect()->route('admin.products')->with('status','Product added successfully!');
+    //     }
     // }
-    public function generateProductThumbnailImage($image, $imageName)
-    {
-        $destinationPathThumbnail = public_path('/uploads/products/thumbnail');
-        $destinationPath = public_path('/uploads/products');
 
-        $img = Image::read($image->getRealPath()); // Ensure correct path
 
-        // Resize while maintaining aspect ratio
-        $img = $img->scale(width: 540, height: 689);
-        $img->save($destinationPath . '/' . $imageName);
+//     public function generateProductThumbnailImage($image, $imageName)
+//     {
+//         $destinationPathThumbnail = public_path('/uploads/products/thumbnail');
+//         $destinationPath = public_path('/uploads/products');
 
-        // Fit for thumbnail
-        $img = Image::read($image->getRealPath()); // Reload original image
-        $img = $img->cover(124, 124);
-        $img->save($destinationPathThumbnail . '/' . $imageName);
-    }
+//         $img = Image::read($image->getRealPath()); // Ensure correct path
+
+//         // Resize while maintaining aspect ratio
+//         $img = $img->scale(width: 540, height: 689);
+//         $img->save($destinationPath . '/' . $imageName);
+
+//         // Fit for thumbnail
+//         $img = Image::read($image->getRealPath()); // Reload original image
+//         $img = $img->cover(124, 124);
+//         $img->save($destinationPathThumbnail . '/' . $imageName);
+//     }
 
 }
 
