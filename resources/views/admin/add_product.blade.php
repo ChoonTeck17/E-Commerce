@@ -30,7 +30,7 @@
         </div>
         <!-- form-add-product -->
         <form class="tf-section-2 form-add-product" method="POST" enctype="multipart/form-data"
-            action="">
+            action="{{route('admin.product.store')}}">
 
             @csrf
             <div class="wg-box">
@@ -108,7 +108,7 @@
             </div>
             <div class="wg-box">
                 <fieldset>
-                    <div class="body-title">Upload images <span class="tf-color-1">*</span>
+                    <div class="body-title">Upload thumbnail images <span class="tf-color-1">*</span>
                     </div>
                     <div class="upload-image flex-grow">
                         <div class="item" id="imgpreview" style="display:none">
