@@ -38,6 +38,11 @@
                                                 class="icon-plus"></i>Add new</a>
                                     </div>
                                     <div class="table-responsive">
+                                        @if(Session:: has('status'))
+                                        <p class="alert alert-success">
+                                            {{Session::get('status')}}
+                                        </p>
+                                        @endif
                                         <table class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -83,7 +88,7 @@
                                                                     <i class="icon-eye"></i>
                                                                 </div>
                                                             </a>
-                                                            <a href="#">
+                                                            <a href="{{route('admin.product.edit', $product->id)}}">
                                                                 <div class="item edit">
                                                                     <i class="icon-edit-3"></i>
                                                                 </div>
