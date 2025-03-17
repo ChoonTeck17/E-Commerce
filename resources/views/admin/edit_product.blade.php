@@ -33,7 +33,8 @@
             action="{{route('admin.product.update', $product->id)}}">
 
             @csrf
-            <input type="text" class="hidden" value="{{$product->id}}" >
+            @method('PUT')
+            <input type="text" class="hidden" name="id" value="{{$product->id}}" >
             <div class="wg-box">
                 <fieldset class="name">
                     <div class="body-title mb-10">Product name <span class="tf-color-1">*</span>
@@ -62,7 +63,7 @@
                             <select class="" name="category_id">
                                 <option>Choose category</option>
                                 @foreach ($categories as $category)
-                                <option value="{{$category->id}}"{{$product->category_id == $category->id ? "selected":"no"}}>{{$category->name}}</option>                                    
+                                <option value="{{$category->id}}"{{$product->category_id == $category->id ? "selected":''}}>{{$category->name}}</option>                                    
                                 @endforeach
                             </select>
                         </div>
@@ -76,7 +77,7 @@
                             <select class="" name="brand_id">
                                 <option>Choose Brand</option>
                                 @foreach ($brands as $brand)
-                                <option value="{{$brand->id}}"{{$brand->brand_id == $category->id ? "selected":"no"}}>{{$brand->name}}</option>
+                                <option value="{{$brand->id}}"{{$product->brand_id == $brand->id ? "selected":''}}>{{$brand->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -84,7 +85,7 @@
                     @error('brand_id') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
                 </div>
 
-                <fieldset class="shortdescription">
+                {{-- <fieldset class="shortdescription">
                     <div class="body-title mb-10">Short Description <span
                             class="tf-color-1">*</span></div>
                     <textarea class="mb-10 ht-150" name="short_description"
@@ -93,14 +94,14 @@
                     <div class="text-tiny">Do not exceed 100 characters when entering the
                         product name.</div>
                 </fieldset>
-                @error('short_description') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
+                @error('short_description') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror --}}
 
 
                 <fieldset class="description">
                     <div class="body-title mb-10">Description <span class="tf-color-1">*</span>
                     </div>
                     <textarea class="mb-10" name="description" placeholder="Description"
-                        tabindex="0" aria-required="true" required="" value="{{$product->description}}"></textarea>
+                        tabindex="0" aria-required="true" required=""> {{$product->description}}</textarea>
                     <div class="text-tiny">Do not exceed 100 characters when entering the
                         product name.</div>
                 </fieldset>
@@ -222,7 +223,7 @@
 
                 </div>
                 <div class="cols gap10">
-                    <button class="tf-button w-full" type="submit">Add product</button>
+                    <button class="tf-button w-full" type="submit">Save product</button>
                 </div>
             </div>
         </form>

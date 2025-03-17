@@ -83,7 +83,7 @@
                     @error('brand_id') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
                 </div>
 
-                <fieldset class="shortdescription">
+                {{-- <fieldset class="shortdescription">
                     <div class="body-title mb-10">Short Description <span
                             class="tf-color-1">*</span></div>
                     <textarea class="mb-10 ht-150" name="short_description"
@@ -92,7 +92,7 @@
                     <div class="text-tiny">Do not exceed 100 characters when entering the
                         product name.</div>
                 </fieldset>
-                @error('short_description') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
+                @error('short_description') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror --}}
 
 
                 <fieldset class="description">
