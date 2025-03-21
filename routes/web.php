@@ -13,6 +13,7 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name(name: 'home.index');
 Route::get('/shop', [ShopController::class, 'index'])->name(name: 'shop.index');
+route::get('/product/{product_slug}', [ShopController::class, 'product_details'])->name('shop.product.details');
 
 Route::middleware( ['auth'])->group(function () {
     Route::get('/account-dashboard', [UserController::class,'index'])->name('user.index');
