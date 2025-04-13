@@ -56,4 +56,20 @@ class CartController extends Controller
     session()->flash('success', 'Session and cart cleared successfully!');
     return redirect()->route('cart.index');
 }
+
+    public function increase_cart_quantity($rowid)
+    {
+        $product = Cart::instance('cart')->get($rowid);
+        $qty = $product->qty + 1;
+        Cart::instance('cart')->update($rowid, $qty);
+        return redirect()->back();
+    }
+    public function decrease_cart_quantity($rowid)
+    {
+        $product = Cart::instance('cart')->get($rowid);
+        $qty = $product->qty - 1;
+        Cart::instance('cart')->update($rowid, $qty);
+        return redirect()->back();
+    }
+
 }

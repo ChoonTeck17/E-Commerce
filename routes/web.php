@@ -19,6 +19,8 @@ route::get('/product/{product_slug}', [ShopController::class, 'product_details']
 route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 route::post('/cart/add', [CartController::class, 'add_to_cart'])->name('cart.add');
 Route::post('/cart/clear-session', [CartController::class, 'clear_session'])->name('cart.clear-session');
+route::put('/cart/increase-quantity/{rowId}', [CartController::class, 'increase_cart_quantity'])->name('cart.increase-quantity');
+route::put('/cart/decrease-quantity/{rowId}', [CartController::class, 'decrease_cart_quantity'])->name('cart.decrease-quantity');  
 
 Route::middleware( ['auth'])->group(function () {
     Route::get('/account-dashboard', [UserController::class,'index'])->name('user.index');
