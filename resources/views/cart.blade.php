@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -90,12 +92,15 @@
                             <span class="shopping-cart__subtotal">${{$item->subtotal()}}</span>
                         </td>
                         <td>
-                            <a href="#" class="remove-cart">
+                            <form method="POST" action="{{route('cart.remove', ['rowId'=>$item->rowId])}}">
+                                @csrf
+                                @method('DELETE')
+                            <a href="javascript:void(0)" class="remove-cart">
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z" />
-                                    <path d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z" />
+                                    <i class="fa-solid fa-xmark"></i>
                                 </svg>
                             </a>
+                          </form>
                         </td>
                     </tr>
                 @endforeach
@@ -107,7 +112,11 @@
                 <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
                     value="APPLY COUPON">
                 </form>
-                <button class="btn btn-light">UPDATE CART</button>
+                <form action="{{route('cart.empty')}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                <button class="btn btn-light" type="submit">Clear cart</button>
+                </form>
             </div>
             </div>
             <div class="shopping-cart__totals-wrapper">
@@ -175,6 +184,10 @@
         });
 
         $(".qty-control__increase").click(function(){
+           $(this).closest('form').submit();
+        });
+
+        $(".remove-cart").click(function(){
            $(this).closest('form').submit();
         });
     })
