@@ -125,7 +125,7 @@
 
                     <form action="{{route('wishlist.add')}}" method="POST" id="wishlist-form">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $product->id }}">  
+                        <input type="hidden" name="id" value="{{    $product->id }}">  
                         <input type="hidden" name="name" value="{{ $product->name }}">
                         <input type="hidden" name="price" value="{{$product->sale_price =='' ? $product->normal_price  : $product->sale_price }}">
                         <input type="hidden" name="quantity" value="1">

@@ -46,6 +46,17 @@
                     {{$item->qty}}
                 </td>
                 <td>
+                  <div class="row">
+                    <div class="col-6">
+                      <form action="{{route('wishlist.move_to_cart', ['rowId'=>$item->rowId])}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-warning">
+                          Move to cart
+                        </button>
+                       </form>
+                  </div>
+
+              <div class="col-6">
                 <form action="{{route('wishlist.remove', ['rowId'=>$item->rowId])}}" method="POST" id="remove-cart-{{$item->rowId}}">
                     @csrf
                     @method('DELETE')
@@ -56,6 +67,9 @@
                     </svg>
                   </a>
                 </form>
+              </div>
+            </div>
+
                 </td>
               </tr>
             </tbody>

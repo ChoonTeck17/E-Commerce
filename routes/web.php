@@ -29,6 +29,7 @@ route::post('/wishlist/add', [WishlistController::class, 'add_to_wishlist'])->na
 route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 route::delete('/wishlist/remove/{rowId}', [WishlistController::class, 'remove_from_wishlist'])->name('wishlist.remove');
 route::delete('/wishlist/clear', [WishlistController::class, 'empty_wishlist'])->name('wishlist.empty');
+route::post('/wishlist/move-to-cart/{rowId}', [WishlistController::class, 'move_to_cart'])->name('wishlist.move_to_cart');
 
 
 Route::middleware( ['auth'])->group(function () {
@@ -62,5 +63,9 @@ Route::post('/admin/product/store', [AdminController::class,'store_product'])->n
 Route::get('/admin/product/{id}/edit', [AdminController::class,'edit_product'])->name('admin.product.edit');
 Route::put('/admin/product/{id}',[AdminController::class,'update_product'])->name('admin.product.update');
 Route::delete('/admin/product/{id}/delete',[AdminController::class,'delete_product'])->name('admin.product.delete');
+
+route::get('admin/coupons', [AdminController::class, 'coupons'])->name('admin.coupons');
+Route::get('admin/coupon/add', [AdminController::class, 'add_coupon'])->name('admin.coupon.add');
+route::post('admin/coupon/store', [AdminController::class, 'store_coupon'])->name('admin.coupon.store');
 });
     

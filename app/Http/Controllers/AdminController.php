@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Category; // Ensure this line is present
 use App\Models\Product; // Ensure this line is present
+use App\Models\Coupon; // Ensure this line is present
 
 // use Illuminate\Support\Facades\Str;
 // use Intervention\Image\Facades\Image;
@@ -428,8 +429,33 @@ class AdminController extends Controller
         return redirect()->route('admin.products')->with('status', 'Product has been deleted successfully!');
     }
         
+    public function coupons(){
+        $coupons = Coupon::orderBy('expiry_date','desc')->paginate(12);
+        return view('admin.coupons', compact('coupons'));
+    }
 
+    public function add_coupon(){
+        return view('admin.add_coupon');
+    }
 
+    public function store_coupon(request $request){
+        $request->validate([
+            'code'=> 'required|unique:coupons,code',
+            'type'=> 'required',
+            'value'=> 'required|numeric',
+            'cart_value'=> 'required|numeric',
+            'expiry_date'=> 'required|date',
+        ]);
+        $coupon = new Coupon();
+        $coupon->code = $request->code;
+        $coupon->type = $request->type;
+        $coupon->value = $request->value;
+        $coupon->cart_value = $request->cart_value;
+        $coupon->expiry_date = $request->expiry_date;
+        $coupon->save();
+
+        return redirect()->route('admin.coupons')->with('status','Coupon added successfully!');
+    }
 }
 
 
