@@ -67,5 +67,8 @@ Route::delete('/admin/product/{id}/delete',[AdminController::class,'delete_produ
 route::get('admin/coupons', [AdminController::class, 'coupons'])->name('admin.coupons');
 Route::get('admin/coupon/add', [AdminController::class, 'add_coupon'])->name('admin.coupon.add');
 route::post('admin/coupon/store', [AdminController::class, 'store_coupon'])->name('admin.coupon.store');
+route::get('admin/coupon/{id}/edit', [AdminController::class, 'edit_coupon'])->name('admin.coupon.edit');
+route::put('admin/coupon/{id}', [AdminController::class, 'update_coupon'])->name('admin.coupon.update');
+route::delete('admin/coupon/{id}/delete', [AdminController::class, 'delete_coupon'])->name('admin.coupon.delete');
 });
     
