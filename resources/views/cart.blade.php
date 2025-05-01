@@ -3,6 +3,15 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
+<style>
+    .text-success {
+        color: green !important;
+    }
+    .text-danger{
+        color:red !important;
+    }
+</style>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -107,8 +116,9 @@
                 </tbody>
             </table>
             <div class="cart-table-footer">
-                <form action="#" class="position-relative bg-body">
-                <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code">
+                <form action="{{route('cart.apply_coupon')}}" METHOD="POST" class="position-relative bg-body">
+                    @csrf
+                <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code" value="@if(Session::has('coupon')) {{Session::get('coupon')['code']}} applied! @endif">
                 <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
                     value="APPLY COUPON">
                 </form>
@@ -118,11 +128,53 @@
                 <button class="btn btn-light" type="submit">Clear cart</button>
                 </form>
             </div>
+            <div>
+                @if (Session::has('success'))
+                <p class="text-success">{{Session::get('success')}}</p>
+                @elseif(Session::has('error'))
+                <p class="text-danger">{{Session::get('error')}}</p>
+                @endif
+            </div>
             </div>
             <div class="shopping-cart__totals-wrapper">
             <div class="sticky-content">
                 <div class="shopping-cart__totals">
                 <h3>Cart Totals</h3>
+                @if(Session::has('discounts'))
+                  
+                <table class="cart-totals">
+                    <tbody>
+                    <tr>
+                        <th>Subtotal</th>
+                        <td>${{Cart::instance('cart')->subtotal()}}</td>
+                    </tr>
+                    <tr>
+                        <th>Discount {{Session::get('coupon')['code']}}</th>
+                        <td>{{Session::get('discounts')['discount']}}</td>
+                    </tr>
+                    <tr>
+                        <th>Subtotal after discount </th>
+                        <td>${{Session::get('discounts')['subtotal']}}</td>
+                    </tr>
+                    <tr>
+                        <th>Shipping</th>
+                        <td>
+                            Free
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>VAT</th>
+                        <td>${{Session::get('discounts')['tax']}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>${{Session::get('discounts')['total']}}</td>
+                    </tr>
+                    </tbody>
+                </table>  
+
+                @else
+
                 <table class="cart-totals">
                     <tbody>
                     <tr>
@@ -145,6 +197,7 @@
                     </tr>
                     </tbody>
                 </table>
+                @endif
                 </div>
                 <div class="mobile_fixed-btn_wrapper">
                 <div class="button-wrapper container">

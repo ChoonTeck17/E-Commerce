@@ -98,7 +98,7 @@
     </div>
 </div>
 
-@endsection
+@endsection 
 @push('scripts')
 
 <script>
@@ -109,7 +109,7 @@
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
+                type: "warning",
                 buttons: ["NOOOO", "YESSSSS"],
                 dangerMode: true,
                 confirmButtonColor: '#dc3545',
