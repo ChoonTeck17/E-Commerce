@@ -37,8 +37,11 @@ route::post('/wishlist/move-to-cart/{rowId}', [WishlistController::class, 'move_
 route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 route::post('/place-order', [CartController::class, 'place_order'])->name('cart.place_order');
 route::get('/order/success', [CartController::class, 'order_success'])->name('cart.order_success');
+
 Route::middleware( ['auth'])->group(function () {
 Route::get('/account-dashboard', [UserController::class,'index'])->name('user.index');
+Route::get('/account-orders', [UserController::class,'orders'])->name('user.orders');
+route::get('/account-order/{order_id}/details', [UserController::class,'order_details'])->name('user.order.details');
 });
 
 Route::middleware( ['auth', AuthAdmin::class])->group(function () {
