@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
         <title>Surfside Media</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="surfside media" />
@@ -308,7 +309,7 @@
                                 </form>
 
                             </div>
-                            <div class="header-grid">
+                            {{-- <div class="header-grid">
 
                                 <div class="popup-wrap message type-header">
                                     <div class="dropdown">
@@ -441,16 +442,14 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="main-content">
                         @yield('content')
 
 
-                        <div class="bottom-page">
-                            <div class="body-text">Copyright © 2024 SurfsideMedia</div>
-                        </div>
+             
                     </div>
 
                 </div>

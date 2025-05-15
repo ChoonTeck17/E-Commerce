@@ -54,7 +54,7 @@
           </div>
           <div class="order-info__item">
             <label>Payment Method</label>
-            <span>{{ $order->transaction?->mode ?? 'N/A' }}</span>
+            <span>{{ $order->transaction->mode }}</span>
           </div>
         </div>
         <div class="checkout__totals-wrapper">
@@ -68,7 +68,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($order->OrderItems as $item)
+                @foreach ($order->orderItems as $item)
 
                 <tr>
                   <td>
@@ -100,7 +100,7 @@
                   <td class= "text-right">{{$order->tax}}</td>
                 </tr>
                 <tr>
-                  <th>TOTAL</th>
+                  <th>TOTAL</th>ƒ
                   <td class= "text-right">${{$order->total}}</td>
                 </tr>
               </tbody>

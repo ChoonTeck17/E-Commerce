@@ -199,10 +199,10 @@
               </div>
               <div class="checkout__payment-methods">
                 <div class="form-check">
-                  <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                    id="checkout_payment_method_1" checked>
-                  <label class="form-check-label" for="checkout_payment_method_1">
-                    Direct bank transfer
+                  <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method" name="mode" value="card" id="mode1"
+                   checked>
+                  <label class="form-check-label" >
+                    Debit or Credit card
                     <p class="option-detail">
                       Make your payment directly into our bank account. Please use your Order ID as the payment
                       reference.Your order will not be shipped until the funds have cleared in our account.
@@ -210,21 +210,18 @@
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                    id="checkout_payment_method_2">
+                  <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method" name="mode" value="paypal" id="mode2">
                   <label class="form-check-label" for="mode1" value="card">
-                    Debit or Credit card
-
+                    Paypal
                   </label>
                 </div>
                 <div class="form-check">
-                <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                    id="checkout_payment_method_1" checked>
+                <input class="form-check-input form-check-input_fill" type="radio" name="mode" value="cod" id="mode3"
+                     checked>
                   <label class="form-check-label" for="checkout_payment_method_1">
-                    Direct bank transfer
+                    Cash on Delivery
                     <p class="option-detail">
-                      Make your payment directly into our bank account. Please use your Order ID as the payment
-                      reference.Your order will not be shipped until the funds have cleared in our account.
+                      pay with cash
                     </p>
                   </label>                               
                 </div>

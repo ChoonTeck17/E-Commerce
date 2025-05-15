@@ -218,9 +218,11 @@ class CartController extends Controller
 
         if($request->mode == "card")
         {
-
-        }
-        elseif($request->mode == "cod")
+            //
+        }elseif($request->mode == "paypal")
+        {
+            //
+        }elseif($request->mode == "cod")
         {
             $transaction = new Transaction();
             $transaction->user_id = $user_id;

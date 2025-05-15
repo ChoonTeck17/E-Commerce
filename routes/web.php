@@ -15,7 +15,9 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name(name: 'home.index');
 Route::get('/shop', [ShopController::class, 'index'])->name(name: 'shop.index');
+route::get('shop/contact',[ShopController::class, 'contact'])->name('shop.contact');
 route::get('/product/{product_slug}', [ShopController::class, 'product_details'])->name('shop.product.details');
+
 
 route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 route::post('/cart/add', [CartController::class, 'add_to_cart'])->name('cart.add');
@@ -80,6 +82,7 @@ route::put('admin/coupon/{id}', [AdminController::class, 'update_coupon'])->name
 route::delete('admin/coupon/{id}/delete', [AdminController::class, 'delete_coupon'])->name('admin.coupon.delete');
 
 route::get('admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
-route::get('admin/order/{id}', [AdminController::class, 'order_details'])->name('admin.order.details');
+route::get('admin/order/{id}/details', [AdminController::class, 'order_details'])->name('admin.order.details');
+route::put('admin/order/update-status', [AdminController::class, 'update_order_status'])->name('admin.order.update.status');
 });
     
