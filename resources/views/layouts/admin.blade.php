@@ -9,11 +9,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <title>Surfside Media</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="author" content="surfside media" />
         <link rel="stylesheet" type="text/css" href="{{asset('css/animate.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/animation.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
@@ -135,12 +133,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="slider.html" class="">
-                                        <div class="icon"><i class="icon-image"></i></div>
-                                        <div class="text">Slider</div>
-                                    </a>
-                                </li>
+
                                 <li class="menu-item">
                                     <a href="{{route('admin.coupons')}}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
@@ -148,19 +141,8 @@
                                     </a>
                                 </li>
 
-                                <li class="menu-item">
-                                    <a href="users.html" class="">
-                                        <div class="icon"><i class="icon-user"></i></div>
-                                        <div class="text">User</div>
-                                    </a>
-                                </li>
 
-                                <li class="menu-item">
-                                    <a href="settings.html" class="">
-                                        <div class="icon"><i class="icon-settings"></i></div>
-                                        <div class="text">Settings</div>
-                                    </a>
-                                </li>
+ 
                             </ul>
                         </div>
                     </div>

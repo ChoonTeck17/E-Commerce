@@ -23,8 +23,7 @@
 @endif
 <main class="pt-90">
     <div class="mb-4 pb-4"></div>
-    <section class="shop-checkout container">
-      <h2 class="page-title">Cart</h2>
+    <section class="shop-checkout container mt-5">
       <div class="checkout-steps">
         <a href="javascript:void(0)" class="checkout-steps__item active">
           <span class="checkout-steps__item-number">01</span>

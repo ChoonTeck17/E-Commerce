@@ -9,10 +9,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <title>Surfside Media</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="author" content="surfside media" />
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico" type="image/x-icon') }}">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -97,11 +95,9 @@
               <li class="navigation__item">
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
+
               <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
-              </li>
-              <li class="navigation__item">
-                <a href="{{route('shop.contact')}}" class="navigation__link">Contact</a>
+                <a href="{{route('shop.contactus')}}" class="navigation__link">Contact</a>
               </li>
             </ul>
           </div>
@@ -180,11 +176,9 @@
               <li class="navigation__item">
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
+
               <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
-              </li>
-              <li class="navigation__item">
-                <a href="{{route('shop.contact')}}" class="navigation__link">Contact</a>
+                <a href="{{route('shop.contactus')}}" class="navigation__link">Contact</a>
               </li>
             </ul>
           </nav>
@@ -281,6 +275,11 @@
     </header>
 
   @yield("content")
+
+  <body>
+
+
+
   
     <hr class="mt-5 text-secondary" />
     <footer class="footer footer_type_2">
@@ -289,7 +288,7 @@
           <div class="footer-column footer-store-info col-12 mb-4 mb-lg-0">
             <div class="logo">
               <a href="{{route('home.index')}}">
-                <img src="assets/images/logo.webp" alt="SurfsideMedia" class="logo__image d-block" height="100"/>
+                <img src="assets/images/logo.webp" alt="" class="logo__image d-block" height="100"/>
               </a>
             </div>
             <p class="footer-address">Selangor, Japan</p>
@@ -471,7 +470,7 @@
     </footer>
   
   
-    <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
+    {{-- <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
       <div class="row text-center">
         <div class="col-4">
           <a href="{{route('home.index')}}" class="footer-mobile__link d-flex flex-column align-items-center">
@@ -506,11 +505,11 @@
           </a>
         </div>
       </div>
-    </footer>
+    </footer> --}}
   
-    <div id="scrollTop" class="visually-hidden end-0"></div>
+    {{-- <div id="scrollTop" class="visually-hidden end-0"></div>
     <div class="page-overlay"></div>
-  
+   --}}
     <script src="{{ asset('assets/js/plugins/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap-slider.min.js') }}"></script>

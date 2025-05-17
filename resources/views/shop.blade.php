@@ -110,7 +110,9 @@
                 </svg>
               </button>
             </h5>
-            <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
+
+            
+            {{-- <div id="accordion-filter-2" class="accordion-collapse collapse show border-0"
               aria-labelledby="accordion-heading-1" data-bs-parent="#color-filters">
               <div class="accordion-body px-0 pb-0">
                 <div class="d-flex flex-wrap">
@@ -126,12 +128,12 @@
                   <a href="#" class="swatch-color js-filter" style="color: #bfdcc4"></a>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
 
 
-        <div class="accordion" id="size-filters">
+        {{-- <div class="accordion" id="size-filters">
           <div class="accordion-item mb-4 pb-3">
             <h5 class="accordion-header" id="accordion-heading-size">
               <button class="accordion-button p-0 border-0 fs-5 text-uppercase" type="button" data-bs-toggle="collapse"
@@ -159,7 +161,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
 
         <div class="accordion" id="price-filters">
           <div class="accordion-item mb-4">
@@ -508,6 +510,8 @@
 
 
   </main>
+
+  
 
   <form id="frmfilter" method="GET" action="{{ route('shop.index') }}">
     <input type="hidden" name="page" value="{{ $products->currentPage() }}">

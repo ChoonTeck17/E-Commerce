@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
+    public function contact()
+    {
+        return view('contactus');
+    }
     public function index(Request $request){
         $size = $request->query('size') ? $request->query('size') : 12;
         $order = $request->query('order') ? $request->query('order') : -1;
