@@ -49,7 +49,7 @@
   
         <div class="logo">
           <a href="{{route('home.index')}}">
-            <img src="{{ asset('assets/images/logo.webp') }}"  alt="Uomo" class="logo__image d-block"  height="100"/>
+            <img src="{{ asset('assets/images/logo.webp') }}"  alt="logo" class="logo__image d-block"  height="100"/>
           </a>
         </div>
   
@@ -161,7 +161,7 @@
         <div class="header-desk header-desk_type_1">
           <div class="logo">
             <a href="{{route('home.index')}}">
-              <img src="assets/images/logo.webp" alt="Uomo" class="logo__image d-block"  height="100" />
+              <img src="{{asset('assets/images/logo.webp')}}" alt="logo" class="logo__image d-block"  height="100" />
             </a>
           </div>
   
@@ -276,9 +276,6 @@
 
   @yield("content")
 
-  <body>
-
-
 
   
     <hr class="mt-5 text-secondary" />
@@ -288,7 +285,7 @@
           <div class="footer-column footer-store-info col-12 mb-4 mb-lg-0">
             <div class="logo">
               <a href="{{route('home.index')}}">
-                <img src="assets/images/logo.webp" alt="" class="logo__image d-block" height="100"/>
+                <img src="{{ asset('assets/images/logo.webp') }}" alt="" class="logo__image d-block" height="100"/>
               </a>
             </div>
             <p class="footer-address">Selangor, Japan</p>
@@ -515,6 +512,7 @@
     <script src="{{ asset('assets/js/plugins/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/swiper.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/countdown.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}""></script>
     @stack("scripts")
   </body>

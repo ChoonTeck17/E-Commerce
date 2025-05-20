@@ -8,15 +8,17 @@
         <div class="col-lg-3">
             @include('user.account-nav')
         </div>
-        <div class="col-lg-9">
-          <div class="page-content my-account__dashboard">
-            <p>Hello <strong>User</strong></p>
-            <p>From your account dashboard you can view your <a class="unerline-link" href="account_orders.html">recent
-                orders</a>, manage your <a class="unerline-link" href="account_edit_address.html">shipping
-                addresses</a>, and <a class="unerline-link" href="account_edit.html">edit your password and account
-                details.</a></p>
-          </div>
-        </div>
+                <div class="col-lg-9">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Dashboard</h5>
+                            <p class="mb-2">Hello <strong>{{ auth()->user()->name ?? 'User' }}</strong></p>
+                            <p class="mb-0">
+                                From your account dashboard, you can view your recent orders, manage your shipping addresses, and edit your password and account details
+                            </p>
+                        </div>
+                    </div>
+                </div>
       </div>
     </section>
   </main>
