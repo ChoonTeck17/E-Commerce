@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+@if (session('status'))
+    <script>
+        alert('{{ session('status') }}');
+    </script>
+@endif
+
 <main class="pt-90">
     <div class="mb-4 pb-4"></div>
     <section class="my-account container">

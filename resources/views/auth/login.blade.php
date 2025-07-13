@@ -14,7 +14,7 @@
                             <label for="email" class="form-label fw-medium">{{ __('Email Address') }}</label>
                             <input id="email" type="email" class="form-control rounded-3 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Enter your email">
                             @error('email')
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback">x
                                     {{ $message }}
                                 </div>
                             @enderror
